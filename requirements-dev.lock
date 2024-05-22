@@ -45,6 +45,8 @@ holoviews==1.18.3
     # via hvplot
 hvplot==0.10.0
     # via mev-pipe
+hypersync==0.6.2
+    # via mev-pipe
 idna==3.7
     # via requests
 ipykernel==6.29.4
@@ -62,7 +64,7 @@ jupyter-core==5.7.2
     # via jupyter-client
 lancedb==0.6.13
     # via lancedb-tables
-lancedb-tables==0.1.1
+lancedb-tables==0.1.2
     # via mev-pipe
 linkify-it-py==2.0.3
     # via panel
@@ -169,6 +171,8 @@ six==1.16.0
     # via python-dateutil
 stack-data==0.6.3
     # via ipython
+strenum==0.4.15
+    # via hypersync
 tornado==6.4
     # via bokeh
     # via ipykernel

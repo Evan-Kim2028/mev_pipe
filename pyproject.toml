@@ -8,6 +8,7 @@ dependencies = [
     "lancedb-tables==0.1.2",
     "ipykernel>=6.29.4",
     "hvplot>=0.10.0",
+    "hypersync>=0.6.2",
 ]
 readme = "README.md"
 requires-python = ">= 3.8"
