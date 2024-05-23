@@ -10,6 +10,7 @@ dependencies = [
     "ipykernel>=6.29.4",
     "hvplot>=0.10.0",
     "python-dotenv>=1.0.1",
+    "prefect>=2.19.2",
 ]
 readme = "README.md"
 requires-python = ">= 3.8"
