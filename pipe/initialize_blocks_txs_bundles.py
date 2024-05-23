@@ -138,7 +138,12 @@ pyarrow.lib.ArrowTypeError: struct fields don't match or are in the wrong order:
         print(f"Page {page + 1}: Fetched {len(fetched_data)
                                           } rows, Total: {total_rows} rows")
 
-    return pl.DataFrame(all_data)
+    df = pl.DataFrame(all_data)
+
+    if 'token_balance_delta' in df.columns:
+        df = df.drop('token_balance_delta')
+
+    return df
 
 
 async def historical_blocks_txs_sync():
