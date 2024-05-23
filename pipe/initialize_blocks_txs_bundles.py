@@ -66,48 +66,6 @@ def fetch_libmev_bundles(timestamp_start, timestamp_end, limit=100, offset=0, or
 
 def fetch_paginated_data(timestamp_start, timestamp_end, limit=100, pages=1000) -> pl.DataFrame:
     """
-    ! TODO - there is currently a bug where the last iteration of data throws an error:
-    Traceback (most recent call last):
-  File "/home/evan/Documents/mev_pipe/pipe/blocks_txs_bundles.py", line 220, in <module>
-    asyncio.run(historical_blocks_txs_sync())
-  File "/home/evan/.rye/py/cpython@3.12.2/install/lib/python3.12/asyncio/runners.py", line 194, in run
-    return runner.run(main)
-           ^^^^^^^^^^^^^^^^
-  File "/home/evan/.rye/py/cpython@3.12.2/install/lib/python3.12/asyncio/runners.py", line 118, in run
-    return self._loop.run_until_complete(task)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/evan/.rye/py/cpython@3.12.2/install/lib/python3.12/asyncio/base_events.py", line 685, in run_until_complete
-    return future.result()
-           ^^^^^^^^^^^^^^^
-  File "/home/evan/Documents/mev_pipe/pipe/blocks_txs_bundles.py", line 214, in historical_blocks_txs_sync
-    lance_tables.write_table(uri="data", table="libmev_bundles", data=bundle_df, merge_on="block_number"
-  File "/home/evan/Documents/mev_pipe/.venv/lib/python3.12/site-packages/lancedb_tables/lance_table.py", line 59, in write_table
-    .execute(data)
-     ^^^^^^^^^^^^^
-  File "/home/evan/Documents/mev_pipe/.venv/lib/python3.12/site-packages/lancedb/merge.py", line 107, in execute
-    self._table._do_merge(self, new_data, on_bad_vectors, fill_value)
-  File "/home/evan/Documents/mev_pipe/.venv/lib/python3.12/site-packages/lancedb/table.py", line 1644, in _do_merge
-    new_data = _sanitize_data(
-               ^^^^^^^^^^^^^^^
-  File "/home/evan/Documents/mev_pipe/.venv/lib/python3.12/site-packages/lancedb/table.py", line 125, in _sanitize_data
-    data = _sanitize_schema(
-           ^^^^^^^^^^^^^^^^^
-  File "/home/evan/Documents/mev_pipe/.venv/lib/python3.12/site-packages/lancedb/table.py", line 1766, in _sanitize_schema
-    return pa.Table.from_arrays(
-           ^^^^^^^^^^^^^^^^^^^^^
-  File "pyarrow/table.pxi", line 3974, in pyarrow.lib.Table.from_arrays
-  File "pyarrow/table.pxi", line 1464, in pyarrow.lib._sanitize_arrays
-  File "pyarrow/array.pxi", line 371, in pyarrow.lib.asarray
-  File "pyarrow/table.pxi", line 566, in pyarrow.lib.ChunkedArray.cast
-  File "/home/evan/Documents/mev_pipe/.venv/lib/python3.12/site-packages/pyarrow/compute.py", line 404, in cast
-    return call_function("cast", [arr], options, memory_pool)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "pyarrow/_compute.pyx", line 590, in pyarrow._compute.call_function
-  File "pyarrow/_compute.pyx", line 385, in pyarrow._compute.Function.call
-  File "pyarrow/error.pxi", line 154, in pyarrow.lib.pyarrow_internal_check_status
-  File "pyarrow/error.pxi", line 91, in pyarrow.lib.check_status
-pyarrow.lib.ArrowTypeError: struct fields don't match or are in the wrong order: 
-
 
     Fetch paginated data from the libmev API by calling fetch_libmev_bundles repeatedly.
 
