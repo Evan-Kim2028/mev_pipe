@@ -64,7 +64,7 @@ def fetch_libmev_bundles(timestamp_start, timestamp_end, limit=100, offset=0, or
     raise Exception("Exceeded maximum retries due to rate limiting")
 
 
-def fetch_paginated_data(timestamp_start, timestamp_end, limit=100, pages=1000):
+def fetch_paginated_data(timestamp_start, timestamp_end, limit=100, pages=1000) -> pl.DataFrame:
     """
     ! TODO - there is currently a bug where the last iteration of data throws an error:
     Traceback (most recent call last):
@@ -138,7 +138,7 @@ pyarrow.lib.ArrowTypeError: struct fields don't match or are in the wrong order:
         print(f"Page {page + 1}: Fetched {len(fetched_data)
                                           } rows, Total: {total_rows} rows")
 
-    return all_data
+    return pl.DataFrame(all_data)
 
 
 async def historical_blocks_txs_sync():
@@ -246,10 +246,8 @@ async def historical_blocks_txs_sync():
         timestamp_end = blocks_txs_df.select('timestamp').max().item()
 
         print(f'fetching bundle data for {timestamp_start} to {timestamp_end}')
-        bundles_data = fetch_paginated_data(
+        bundle_df = fetch_paginated_data(
             timestamp_start, timestamp_end, 100, 1000)
-
-        bundle_df: pl.DataFrame = pl.DataFrame(bundles_data)
 
         lance_tables.write_table(uri="data", table=txs_table_name, data=blocks_txs_df, merge_on=index
                                  )
